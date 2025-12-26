@@ -1,7 +1,8 @@
 #!/bin/bash -xe
 TOOL_DIR=$( cd "$( dirname "$0" )" && pwd -P )/../tools
 
-PYTHON3=${PYTHON3:-"$TOOL_DIR/python/bin/python3"}
+# Use python installed in Windows, where finding DFU devices is straightforward
+PYTHON3=python.exe
 
 MPTOP=$TOOL_DIR/../external/libpybricks/micropython
 DFU=$MPTOP/tools/dfu.py
