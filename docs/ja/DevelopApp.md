@@ -29,21 +29,23 @@ sudo apt install git ruby make gcc-arm-none-eabi
 - ※必ず、「Add python.exe to PATH」にチェックを入れること
 
 ②　pyusb
-― Windows PowerShellで、「pip install pyusb」を実行
+― Windows PowerShellでpyusbをインストールしておく
+```bash
+pip install pyusb
+```
 - ※pyusbを入れ忘れると、後々「No module named usb」というエラーで落ちる
 
 ③libusb-win32ドライバー（一度変更しておけばOK）
 - https://zadig.akeo.ie から zadig-2.9.exe をダウンロードし、インストールする
-- 最初にSPIKE-RTをDFUモードで接続したら、zadigを起動し、「Options」→「List All Devices」
-- 「LEGO Technic Large Hub in DFU Mode」を選ぶ
-- ドライバーを「WinUSB」から「libusb-win32」へ変更し、「Install Driver」を押す
+- 最初にSPIKE-RTをDFUモードで接続したら、zadigを起動し、「Options」→「List All Devices」→ 「LEGO Technic Large Hub in DFU Mode」を選ぶ
+ - ドライバーを「WinUSB」から「libusb-win32」へ変更し、「Install Driver」を押す
 - ※ドライバーが正しくないと、ファイル転送が「No backend available」で失敗する
 
 ## ビルド
 
 ### カーネルライブラリの生成
 ```bash
-./script/build-kernel.sh
+./scripts/build-kernel.sh
 ```
 
 ### コンフィグ
