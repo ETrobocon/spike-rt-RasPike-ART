@@ -40,7 +40,7 @@ enum {
   SIO_UART_E_PORTID,
 };
 
-#endif // _SEIRAL_SERIAL_H_
+#endif // _SERIAL_SERIAL_H_
 
 /**
  * @} // End of group Serial
