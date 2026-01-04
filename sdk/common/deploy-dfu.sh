@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/bin/bash
 HERE=$( cd "$( dirname "$0" )" && pwd -P )
 
 # Use python installed in Windows, where finding DFU devices is straightforward

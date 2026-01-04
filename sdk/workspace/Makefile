@@ -92,8 +92,8 @@ usage:
 
 upload: $(OBJBINARY)
 	@echo "Upload $(OBJBINARY) file"
-	$(COMMONDIR)/deploy-dfu.sh $(OBJBINARY) && \
-	@echo $(OBJBINARY) has been successfully uploaded.
+	@$(COMMONDIR)/deploy-dfu.sh $(OBJBINARY) && \
+	echo $(OBJBINARY) has been successfully uploaded.
 
 ifneq ($(shell test -f "appdir" && echo 1 || echo 0), 0)
 clean:	cleanup
