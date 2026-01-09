@@ -14,9 +14,9 @@ DFU_PID=0x0008
 
 
 echo "DFU Create $1"
-$PYTHON3 $(wslpath -w $DFU) -b $TEXT0_ADDR:$1 firmware.dfu
+$PYTHON3 $DFU -b $TEXT0_ADDR:$1 firmware.dfu
 
 echo "Writing $1 to the board"
-$PYTHON3 $(wslpath -w $PYDFU) -u firmware.dfu --vid $DFU_VID --pid $DFU_PID
+$PYTHON3 $PYDFU -u firmware.dfu --vid $DFU_VID --pid $DFU_PID
 
 rm -rf firmware.dfu
