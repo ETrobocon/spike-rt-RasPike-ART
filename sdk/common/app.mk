@@ -58,7 +58,7 @@ endif
 ifeq ($(SRCLANG),c++)
 	USE_CXX = true
 	CXXLIBS = -lstdc++ -lm -lc
-	CXXRTS = cxxrt.o newlibrt.o
+	#CXXRTS = cxxrt.o newlibrt.o
 endif
 
 #
@@ -186,7 +186,6 @@ INCLUDES := -I. -I$(SRCDIR)/include $(INCLUDES) -I$(SRCDIR)
 LDFLAGS := $(LDFLAGS) @(LDFLAGS)
 LIBS := @(LIBS) $(LIBS) $(CXXLIBS)
 CFLAGS = $(COPTS) $(CDEFS) $(INCLUDES)
-
 #
 #  アプリケーションプログラムに関する定義
 #
@@ -309,6 +308,7 @@ endif
 #  ソースファイルのあるディレクトリに関する定義
 #
 vpath %.c $(APPL_DIRS) $(KERNEL_DIRS) $(SYSSVC_DIRS)
+vpath %.cpp $(APPL_DIRS) $(KERNEL_DIRS) $(SYSSVC_DIRS)
 vpath %.S $(APPL_DIRS) $(KERNEL_DIRS) $(SYSSVC_DIRS)
 vpath %.cfg $(APPL_DIRS)
 vpath %.cdl $(APPL_DIRS)

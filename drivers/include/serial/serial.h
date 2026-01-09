@@ -29,6 +29,10 @@
 #ifndef _SERIAL_SERIAL_H_
 #define _SERIAL_SERIAL_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  * Definitions of Port ID for Serial Adapter
  */
@@ -39,6 +43,10 @@ enum {
   SIO_UART_F_PORTID,
   SIO_UART_E_PORTID,
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // _SERIAL_SERIAL_H_
 

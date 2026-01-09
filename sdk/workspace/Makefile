@@ -68,6 +68,7 @@ $(BUILDDIR)/Makefile:
 	$(KERNELDIR)/configure.rb -T $(TARGET) -L $(LIBKERNELDIR) \
           -a $(APPLDIR) \
 	  -A $(APPLNAME) \
+	  -l $(SRCLANG) \
 	  -d $(BUILDDIR)/dep \
 	  -C $(CDL_DIR)/$(CDLFILE) \
 	  -m $(MKFILE_DIR)/$(MKFILENAME)

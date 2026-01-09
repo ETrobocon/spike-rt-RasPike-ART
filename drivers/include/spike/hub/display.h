@@ -32,6 +32,10 @@
 #ifndef _HUB_DISPLAY_H_
 #define _HUB_DISPLAY_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
 #include <pbio/error.h>
 #include <pbio/light_matrix.h>
@@ -149,6 +153,10 @@ pbio_error_t hub_display_text(const char* text, uint32_t on, uint32_t off);
  * \retval err  エラー番号．
  */
 pbio_error_t hub_display_text_scroll(const char* text, uint32_t delay);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // _HUB_DISPLAY_H_
 
