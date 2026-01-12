@@ -279,6 +279,7 @@ CFG2_OUT_SRCS := kernel_cfg.h kernel_cfg.c $(CFG2_OUT_SRCS)
 KERNEL_DIRS := $(KERNEL_DIRS) $(SRCDIR)/kernel
 KERNEL_ASMOBJS := $(KERNEL_ASMOBJS)
 KERNEL_COBJS := $(KERNEL_COBJS)
+KERNEL_CXXOBJS := $(KERNEL_CXXOBJS)
 KERNEL_CFLAGS := $(KERNEL_CFLAGS) -I$(SRCDIR)/kernel
 
 #
@@ -310,6 +311,7 @@ endif
 #  ソースファイルのあるディレクトリに関する定義
 #
 vpath %.c $(KERNEL_DIRS) $(SYSSVC_DIRS) $(APPL_DIRS)
+vpath %.cpp $(KERNEL_DIRS) $(SYSSVC_DIRS) $(APPL_DIRS)
 vpath %.S $(KERNEL_DIRS) $(SYSSVC_DIRS) $(APPL_DIRS)
 vpath %.cfg $(APPL_DIRS)
 vpath %.cdl $(APPL_DIRS)
@@ -324,6 +326,7 @@ SYSSVC_ASMOBJS := $(addprefix $(OBJDIR)/, $(SYSSVC_ASMOBJS))
 SYSSVC_COBJS   := $(addprefix $(OBJDIR)/, $(SYSSVC_COBJS))
 KERNEL_ASMOBJS := $(addprefix $(OBJDIR)/, $(KERNEL_ASMOBJS))
 KERNEL_COBJS   := $(addprefix $(OBJDIR)/, $(KERNEL_COBJS))
+KERNEL_CXXOBJS := $(addprefix $(OBJDIR)/, $(KERNEL_CXXOBJS))
 KERNEL_LCOBJS  := $(addprefix $(OBJDIR)/, $(KERNEL_LCOBJS))
 CFG_ASMOBJS    := $(addprefix $(OBJDIR)/, $(CFG_ASMOBJS))
 CFG_COBJS      := $(addprefix $(OBJDIR)/, $(CFG_COBJS))
@@ -333,7 +336,7 @@ CFG_COBJS      := $(addprefix $(OBJDIR)/, $(CFG_COBJS))
 #
 APPL_OBJS = $(APPL_ASMOBJS) $(APPL_COBJS) $(APPL_CXXOBJS)
 SYSSVC_OBJS = $(SYSSVC_ASMOBJS) $(SYSSVC_COBJS)
-KERNEL_LIB_OBJS = $(KERNEL_ASMOBJS) $(KERNEL_COBJS) $(KERNEL_LCOBJS)
+KERNEL_LIB_OBJS = $(KERNEL_ASMOBJS) $(KERNEL_COBJS) $(KERNEL_CXXOBJS) $(KERNEL_LCOBJS)
 CFG_OBJS = $(CFG_ASMOBJS) $(CFG_COBJS)
 ALL_OBJS = $(START_OBJS) $(APPL_OBJS) $(SYSSVC_OBJS) $(CFG_OBJS) \
 											$(END_OBJS) $(HIDDEN_OBJS)
@@ -564,6 +567,9 @@ $(KERNEL_COBJS): $(OBJDIR)/%.o: %.c
 
 $(KERNEL_COBJS:$(OBJDIR)/%.o=%.s): %.s: %.c
 	$(CC) -S -o $@ $(CFLAGS) $(KERNEL_CFLAGS) $<
+
+$(KERNEL_CXXOBJS): $(OBJDIR)/%.o: %.cpp
+	$(CXX) -c -o $@ -MD -MP -MF $(DEPDIR)/$*.d $(CFLAGS) $(KERNEL_CFLAGS) $<
 
 $(KERNEL_LCOBJS): $(OBJDIR)/%.o:
 	$(CC) -c -o $@ -DTOPPERS_$(*F) -MD -MP -MF $(DEPDIR)/$*.d \
