@@ -1,8 +1,11 @@
 #!/bin/bash
 HERE=$( cd "$( dirname "$0" )" && pwd -P )
 
-# Use python installed in Windows, where finding DFU devices is straightforward
-PYTHON3=python.exe
+if command -v python.exe > /dev/null 2>&1; then
+  PYTHON3=python.exe
+else
+  PYTHON3=python3
+fi
 
 MPTOP=$HERE/../../external/libpybricks/micropython
 DFU=$MPTOP/tools/dfu.py

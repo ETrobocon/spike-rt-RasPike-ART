@@ -121,7 +121,11 @@ include $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)/Makefile.chip
 #
 #  フラッシュへの書き込み
 #
-PYTHON3 :=  python.exe
+ifneq ($(shell which python.exe),)
+  PYTHON3=python.exe
+else
+  PYTHON3=python3
+endif
 
 DFU = $(TARGETDIR)/tools/dfu.py
 PYDFU = $(TARGETDIR)/tools/pydfu.py
