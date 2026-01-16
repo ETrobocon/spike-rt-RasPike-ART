@@ -37,7 +37,7 @@ sudo python3 python3-usb
 ※gcc-arm-embedded(2026.01現在、v15.2.rel1)ではビルドできない。
 - パスを切っておく
 ```bash
-echo "export PATH=\"/usr/local/gcc-arm-none-eabi-10.3-2021.10/bin:${PATH}\" >> ~/.zprofile"
+echo "export PATH=\"/usr/local/gcc-arm-none-eabi-10.3-2021.10/bin:\${PATH}\"" >> ~/.zprofile
 ```
 
 ## 書き込み環境の構築
