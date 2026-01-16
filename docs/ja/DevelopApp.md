@@ -11,10 +11,10 @@
 git clone https://github.com/shimojima/spike-rt.git -b etrobo
 ```
 以下、特に断りの無い限りトップディレクトリが`spike-rt` のディレクトリであるとする。
-また、アプリケーション・ソースコードのディレクトリが `spike-rt/$appdir`に配置されているとする。
+また、アプリケーション・ソースコードのディレクトリが `spike-rt/sdk/workspace/$appdir`に配置されているとする。
 
 ## 開発手順
-RasPikeやRasPike-ARTに合わせて、sdk/workspace の中に、プロジェクトファイルを置くく。
+RasPikeやRasPike-ARTに合わせて、sdk/workspace の中に、プロジェクトファイルを置く。
 例として、RasPike-ART の sample_c5_spike を移植して、sdk/workspace/sample_c5 に置いておく。
 
 ### ビルド
