@@ -33,19 +33,12 @@ OBJBINARY := $(KERNEL).bin
 
 ifdef img
 
-APPLNAME := $(img)
+#APPLNAME := $(img)
 APPLNAME := app
 
 APPLDIR  := $(WSPDIR)/$(img)
 MKFILENAME := app.mk
 MKFILE_DIR := $(COMMONDIR)
-
-CDLFILE := $(APPLNAME).cdl
-CDL_DIR := $(APPLDIR)
-ifeq (,$(wildcard $(CDL_DIR)/$(CDLFILE)))
-CDL_DIR := $(COMMONDIR)
-CDLFILE := app.cdl
-endif
 
 BUILDDIR := $(APPLDIR)/build
 
@@ -55,6 +48,13 @@ BUILDDIR := $(APPLDIR)/build
 JOB_NUM = ${JOB_NUM:-$(nproc)} 
 
 include $(APPLDIR)/Makefile.inc
+
+CDLFILE := $(APPLNAME).cdl
+CDL_DIR := $(APPLDIR)
+ifeq (,$(wildcard $(CDL_DIR)/$(CDLFILE)))
+CDL_DIR := $(COMMONDIR)
+CDLFILE := app.cdl
+endif
 
 img: $(APPLDIR) $(BUILDDIR)/Makefile $(LIBKERNELDIR)/libkernel.a
 	@cd $(BUILDDIR) && \
