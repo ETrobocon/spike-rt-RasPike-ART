@@ -470,6 +470,7 @@ clean:
 	rm -rf $(TECSGENDIR)
 ifndef KERNEL_LIB
 	rm -f libkernel.a
+	rm -rf ../obj-primehub_pybricks
 endif
 
 .PHONY: cleankernel
