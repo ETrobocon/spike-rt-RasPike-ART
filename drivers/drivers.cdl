@@ -19,3 +19,4 @@ cell tSIOAsyncPortPybricksUSB SIOPortPybricksUSB1 {
 
 cell tSIOAsyncPortPybricksBluetooth SIOPortPybricksBluetooth1 {
 };
+

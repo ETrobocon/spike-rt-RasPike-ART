@@ -40,6 +40,8 @@ For English document please see [README.md](README.md).
 
 ## 使い方
 アプリケーションの開発方法などの詳細については，[docs/ja/](docs/ja/) を参照．
+- [開発環境の構築](docs/ja/Env.md)
+- [アプリケーションの開発方法](docs/ja/DevelopApp.md)
 
 ## 貢献方法
 バグ報告は，GitHub Issuesへ．
