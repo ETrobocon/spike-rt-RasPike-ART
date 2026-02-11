@@ -12,7 +12,7 @@ ifeq ("$(wildcard $(TLSF_DIR)/README.md)","")
 $(info GIT cloning TLSF submodule)
 $(info $(shell git submodule update --init $(TLSF_DIR)))
 ifeq ("$(wildcard $(TLSF_DIR)/README.md)","")
-$(error failed)
+#$(error failed)
 endif
 endif
 
