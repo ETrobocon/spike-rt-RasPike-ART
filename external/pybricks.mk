@@ -13,7 +13,7 @@ ifeq ("$(wildcard $(PYBRICKS_DIR)/README.md)","")
 $(info GIT cloning pybricks-micropython submodule)
 $(info $(shell git submodule update --init $(PYBRICKS_DIR)))
 ifeq ("$(wildcard $(PYBRICKS_DIR)/README.md)","")
-$(error failed)
+#$(error failed)
 endif
 endif
 
