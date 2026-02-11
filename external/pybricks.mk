@@ -12,6 +12,7 @@ PYBRICKS_BRICK_DIR := $(abspath $(PYBRICKS_DIR)/bricks/primehub_spike-rt)
 ifeq ("$(wildcard $(PYBRICKS_DIR)/README.md)","")
 $(info GIT cloning pybricks-micropython submodule)
 $(info $(shell git submodule update --init $(PYBRICKS_DIR)))
+$(info $(shell (cd $(PYBRICKS_DIR);git checkout spike-rt)))
 ifeq ("$(wildcard $(PYBRICKS_DIR)/README.md)","")
 #$(error failed)
 endif
