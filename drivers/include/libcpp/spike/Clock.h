@@ -7,7 +7,7 @@
 #ifndef SPIKE_CPP_API_CLOCK_H_
 #define SPIKE_CPP_API_CLOCK_H_
 
-#include <cstdint>
+//#include <cstdint>
 
 extern "C" {
 #include <kernel.h>
