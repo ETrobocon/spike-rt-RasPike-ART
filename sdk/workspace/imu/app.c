@@ -4,7 +4,6 @@
 #include <serial/newlib.h>
 
 #include <spike/hub/imu.h>
-#include <pbio/imu.h>
 #include <math.h>
 
 /* メインタスク(起動時にのみ関数コールされる) */
