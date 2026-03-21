@@ -98,22 +98,22 @@ pbio_error_t pybricks_c_common_motor_make_new(pbio_servo_t **p_srv, pbio_port_id
     pbio_error_t err;
 
     // Setup motor device and raise error if not connected or ready.
-    check_pbio_error(pup_device_setup_motor(port, true));
+    check_pbio_error(port, pup_device_setup_motor(port, true));
 
     // Parse gears argument to get gear ratio.
     int32_t gear_ratio = 1000;
     // TODO:
-    // check_pbio_error(get_gear_ratio(&gear_ratio, gears_in));
+    // check_pbio_error(port, get_gear_ratio(&gear_ratio, gears_in));
 
     // Get pointer to servo and allow tacho to finish syncing
     while ((err = pbio_servo_get_servo(port, p_srv)) == PBIO_ERROR_AGAIN) {
         // Wait 1s
         dly_tsk(1000*1000);
     }
-    check_pbio_error(err);
+    check_pbio_error(port, err);
 
     // Set up servo
-    check_pbio_error(pbio_servo_setup(*p_srv, positive_direction, gear_ratio, reset_angle));
+    check_pbio_error(port, pbio_servo_setup(*p_srv, positive_direction, gear_ratio, reset_angle));
 
     return PBIO_SUCCESS;
 }
@@ -158,10 +158,10 @@ pbio_error_t pybricks_c_common_motor_run_time(pbio_servo_t *srv, int32_t speed, 
     time = pbio_int_math_max(time, 0);
 
     // Call pbio with parsed user/default arguments
-    check_pbio_error(pbio_servo_run_time(srv, speed, time, then));
+    check_pbio_error('X', pbio_servo_run_time(srv, speed, time, then));
 
     if (wait) {
-        check_pbio_error(wait_for_completion(srv));
+        check_pbio_error('X', wait_for_completion(srv));
     }
 
     return PBIO_SUCCESS;
@@ -180,10 +180,10 @@ pbio_error_t pybricks_c_common_motor_run_time(pbio_servo_t *srv, int32_t speed, 
 pbio_error_t pybricks_c_common_motor_run_angle(pbio_servo_t *srv, int32_t speed, int32_t rotation_angle, pbio_control_on_completion_t then, bool wait) {
 
     // Call pbio with parsed user/default arguments
-    check_pbio_error(pbio_servo_run_angle(srv, speed, rotation_angle, then));
+    check_pbio_error('X', pbio_servo_run_angle(srv, speed, rotation_angle, then));
 
     if (wait) {
-        check_pbio_error(wait_for_completion(srv));
+        check_pbio_error('X', wait_for_completion(srv));
     }
 
     return PBIO_SUCCESS;
@@ -198,10 +198,10 @@ pbio_error_t pybricks_c_common_motor_run_angle(pbio_servo_t *srv, int32_t speed,
 pbio_error_t pybricks_c_common_motor_run_target(pbio_servo_t *srv, int32_t speed, int32_t target_angle, pbio_control_on_completion_t then, bool wait) {
 
     // Call pbio with parsed user/default arguments
-    check_pbio_error(pbio_servo_run_target(srv, speed, target_angle, then));
+    check_pbio_error('X', pbio_servo_run_target(srv, speed, target_angle, then));
 
     if (wait) {
-        check_pbio_error(wait_for_completion(srv));
+        check_pbio_error('X', wait_for_completion(srv));
     }
 
     return PBIO_SUCCESS;
@@ -209,13 +209,13 @@ pbio_error_t pybricks_c_common_motor_run_target(pbio_servo_t *srv, int32_t speed
 
 // pybricks._common.Motor.track_target
 pbio_error_t pybricks_c_common_motor_track_target(pbio_servo_t *srv, int32_t target_angle) {
-    check_pbio_error(pbio_servo_track_target(srv, target_angle));
+    check_pbio_error('X', pbio_servo_track_target(srv, target_angle));
     return PBIO_SUCCESS;
 }
 
 // pybricks._common.Motor.stalled
 pbio_error_t pybricks_c_common_motor_stalled(pbio_servo_t *srv, bool *p_stalled) {
     uint32_t stall_duration;
-    check_pbio_error(pbio_servo_is_stalled(srv, p_stalled, &stall_duration));
+    check_pbio_error('X', pbio_servo_is_stalled(srv, p_stalled, &stall_duration));
     return PBIO_SUCCESS;
 }

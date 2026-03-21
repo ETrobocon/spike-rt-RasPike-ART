@@ -68,7 +68,7 @@ static pbio_error_t set_mode(pbio_iodev_t *iodev, uint8_t new_mode) {
         // Wait 1 ms
         dly_tsk(1000);
     }
-    check_pbio_error(err);
+    check_pbio_error(iodev->port, err);
 
     wait(pbio_iodev_set_mode_end, pbio_iodev_set_mode_cancel, iodev);
 
@@ -92,11 +92,11 @@ pup_device_t *pup_device_get_device(pbio_port_id_t port, pbio_iodev_type_id_t va
         // Wait 50 ms
         dly_tsk(50*1000);
     }
-    check_pbio_error_r(err, NULL);
+    check_pbio_error_r(port, err, NULL);
 
     // Verify the ID or always allow generic LUMP device
     if (iodev->info->type_id != valid_id && valid_id != PBIO_IODEV_TYPE_ID_LUMP_UART) {
-        check_pbio_error_r(PBIO_ERROR_NO_DEV, NULL);
+        check_pbio_error_r(port, PBIO_ERROR_NO_DEV, NULL);
     }
 
     return (pup_device_t *)iodev;
@@ -110,10 +110,10 @@ pbio_error_t pup_device_get_values(pup_device_t *pdev, uint8_t mode, int32_t *va
     uint8_t len;
     pbio_iodev_data_type_t type;
 
-    check_pbio_error(set_mode(iodev, mode));
+    check_pbio_error(iodev->port, set_mode(iodev, mode));
 
-    check_pbio_error(pbio_iodev_get_data(iodev, &data));
-    check_pbio_error(pbio_iodev_get_data_format(iodev, iodev->mode, &len, &type));
+    check_pbio_error(iodev->port, pbio_iodev_get_data(iodev, &data));
+    check_pbio_error(iodev->port, pbio_iodev_get_data_format(iodev, iodev->mode, &len, &type));
 
     if (len == 0) {
         return PBIO_ERROR_IO;
@@ -149,9 +149,9 @@ pbio_error_t pup_device_set_values(pup_device_t *pdev, uint8_t mode, int32_t *va
     pbio_iodev_data_type_t type;
     pbio_error_t err;
 
-    check_pbio_error(set_mode(iodev, mode));
+    check_pbio_error(iodev->port, set_mode(iodev, mode));
 
-    check_pbio_error(pbio_iodev_get_data_format(iodev, iodev->mode, &len, &type));
+    check_pbio_error(iodev->port, pbio_iodev_get_data_format(iodev, iodev->mode, &len, &type));
 
     if (len != num_values) {
         return PBIO_ERROR_INVALID_ARG;
@@ -180,7 +180,7 @@ pbio_error_t pup_device_set_values(pup_device_t *pdev, uint8_t mode, int32_t *va
         // Wait 1 ms
         dly_tsk(1000);
     }
-    check_pbio_error(err);
+    check_pbio_error(iodev->port, err);
 
     wait(pbio_iodev_set_data_end, pbio_iodev_set_data_cancel, iodev);
 
@@ -212,7 +212,7 @@ pbio_error_t pup_device_setup_motor(pbio_port_id_t port, bool is_servo) {
         // Wait 50 ms
         dly_tsk(50*1000);
     }
-    check_pbio_error(err);
+    check_pbio_error(port, err);
 
     // Only motors are allowed.
     if (!PBIO_IODEV_IS_DC_OUTPUT(iodev)) {
