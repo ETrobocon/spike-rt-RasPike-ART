@@ -6,6 +6,35 @@
 #include <spike/hub/imu.h>
 #include <spike/hub/button.h>
 
+#define DEBUG_IMU 1  // Change this value to see (=1) / suppress (=0) debug output
+#if DEBUG_IMU
+#include <pbio/imu.h>
+static void check_calibration_status(FILE *fp) {
+  // ********************
+  // To calibrate the IMU module of the SPIKE Prim Hub, install Pybricks firmware at https://code.pybricks.com
+  // and run "import _imu_calibrate" on the REPL (cf. https://github.com/pybricks/support/issues/1907)
+  //
+  // The default values are hardcoded in drivers/spike/hub/imu.c
+  // ********************
+  extern int hub_imu_calibration_status;
+  extern pbio_imu_persistent_settings_t hub_imu_settings;
+  pbio_imu_persistent_settings_t *s = &hub_imu_settings;
+  switch (hub_imu_calibration_status) {
+  case  0: fprintf(fp, "IMU not calibrated\n"); break;
+  case -1: fprintf(fp, "Calibration data in flash does not look good; fall back to default values\n"); break;
+  case -2: fprintf(fp, "Failed to read calibration data from flash; use default values\n"); break;
+  case +1: fprintf(fp, "Calibration data found in flash!\n"); break;
+  }
+  fprintf(fp, "Stationary thresholds: %f %f\n", s->gyro_stationary_threshold, s->accel_stationary_threshold);
+  fprintf(fp, "Gravity.+: %f %f %f\n", s->gravity_pos.x, s->gravity_pos.y, s->gravity_pos.z);
+  fprintf(fp, "Gravity.-: %f %f %f\n", s->gravity_neg.x, s->gravity_neg.y, s->gravity_neg.z);
+  fprintf(fp, "Bias : %f %f %f\n", s->angular_velocity_bias_start.x, s->angular_velocity_bias_start.y, s->angular_velocity_bias_start.z);
+  fprintf(fp, "Scale: %f %f %f\n", s->angular_velocity_scale.x, s->angular_velocity_scale.y, s->angular_velocity_scale.z);
+}
+#else
+#define check_calibration_status(fp)
+#endif
+
 static inline hub_button_t hub_buttons_pressed(hub_button_t buttons) {
   hub_button_t pressed;
   hub_button_is_pressed(&pressed);
@@ -21,6 +50,8 @@ void main_task(intptr_t unused) {
   fprintf(fp, "Start !!\n");
     
   hub_imu_init();
+
+  check_calibration_status(fp);
 
   // HackSPi's hub is tilted at ~51 degrees.
   hub_imu_set_tilt(51.0f);

@@ -100,7 +100,7 @@ endif
 endif
 
 usage:
-	@cho "Usage:"
+	@echo "Usage:"
 	@echo "  make img=\"<folder>\""
 	@echo "  make upload"
 	@echo "  make clean"
