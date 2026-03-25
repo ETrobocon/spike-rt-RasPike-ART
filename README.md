@@ -37,7 +37,7 @@ An RTOS-based software platform for [LEGO® Education SPIKE™ Prime](https://ed
 - C standard library (Newlib)
 - SPIKE API
   - An API for controlling device from applications.
-  - See [the document](https://ETrobocon.github.io/spike-rt-Raspike-ART/en/html/topics.html)
+  - See [the document](https://shimojima.github.io/spike-rt/en/html/topics.html)
 
 ## Usage
 For more information, see [docs/ja/](docs/ja/).
