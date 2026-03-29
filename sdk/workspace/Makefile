@@ -68,9 +68,9 @@ PYBRICKS_LIB =
 endif
 
 img: $(APPLDIRS) $(BUILDDIR)/Makefile $(DEPKERNEL)
-	@make -j $(JOB_NUM) -C $(BUILDDIR) && \
-	cp $(BUILDDIR)/$(OBJBINARY) $(WSPDIR) && \
-	echo "$(APPLDIRS)" > $(WSPDIR)/appdir
+	echo "$(APPLDIRS)" > $(WSPDIR)/appdir && \
+	make -j $(JOB_NUM) -C $(BUILDDIR) && \
+	cp $(BUILDDIR)/$(OBJBINARY) $(WSPDIR)
 ifdef KERNEL_LIB
 	@echo "$(abspath $(KERNEL_LIB))" > $(BUILDDIR)/.KERNEL_LIB
 	@echo "$(abspath $(PYBRICKS_LIB))" > $(BUILDDIR)/.PYBRICKS_LIB
@@ -100,7 +100,7 @@ endif
 endif
 
 usage:
-	@echo "Usage:"
+	@cho "Usage:"
 	@echo "  make img=\"<folder>\""
 	@echo "  make upload"
 	@echo "  make clean"
