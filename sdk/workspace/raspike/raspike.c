@@ -192,6 +192,9 @@ void update_hub_status(RPProtocolSpikeStatus *status)
   status->button = button;
   hub_imu_get_angular_velocity(status->angular_velocity);
   hub_imu_get_acceleration(status->acceleration);
+  status->heading = hub_imu_get_heading();
+  status->is_ready = hub_imu_is_ready();
+  status->is_statinary = hub_imu_is_stationary();
 }
 
 void update_port_device_colorsensor(unsigned char cmd_id,pup_device_t *dev,RPProtocolPortStatus *status)
@@ -653,6 +656,15 @@ static void process_ultrasonic_sensor_cmd(RasPikePort port, const int cmd_id, co
 static void process_hub_cmd(RasPikePort port, const int cmd_id, const char *param)
 {
   switch(cmd_id) {
+    case RP_CMD_ID_HUB_IMU_RST_HDG:
+      hub_imu_reset_heading();
+      break;
+    case RP_CMD_ID_HUB_IMU_SET_TLT:
+      {
+        float tlt = *(float*)param;
+        hub_imu_set_tilt(tlt);
+      }
+      break;
     case RP_CMD_ID_HUB_DISP_ORI:
       {
         uint8_t ori = *(uint8_t*)param;

@@ -131,7 +131,8 @@
 #define RP_CMD_ID_HUB_SPK_SET_VOL (MAKE_CMD(RP_CMD_TYPE_HUB,0x11)) // 0xb1
 #define RP_CMD_ID_HUB_SPK_PLY_TON (MAKE_CMD(RP_CMD_TYPE_HUB,0x12)) // 0xb2
 #define RP_CMD_ID_HUB_SPK_STP (MAKE_CMD(RP_CMD_TYPE_HUB,0x13)) // 0xb3
-
+#define RP_CMD_ID_HUB_IMU_SET_TLT (MAKE_CMD(RP_CMD_TYPE_HUB,0x14)) // 0xb4
+#define RP_CMD_ID_HUB_IMU_RST_HDG (MAKE_CMD(RP_CMD_TYPE_HUB,0x15)) // 0xb5
 
 
 /* Hub cmd protocol
@@ -192,6 +193,9 @@ typedef struct {
     uint16_t current;
     float acceleration[3];
     float angular_velocity[3];
+    float heading;
+    uint16_t is_ready;
+    uint16_t is_statinary;
     uint32_t button;
     RPProtocolPortStatus ports[6];
 } RPProtocolSpikeStatus;
