@@ -192,9 +192,14 @@ void update_hub_status(RPProtocolSpikeStatus *status)
   status->button = button;
   hub_imu_get_angular_velocity(status->angular_velocity);
   hub_imu_get_acceleration(status->acceleration);
-  status->heading = hub_imu_get_heading();
   status->is_ready = hub_imu_is_ready();
   status->is_statinary = hub_imu_is_stationary();
+  if ( status->is_ready ) {
+    status->heading = hub_imu_get_heading();
+  } else {
+    status->heading = 0.0f;
+  }
+
 }
 
 void update_port_device_colorsensor(unsigned char cmd_id,pup_device_t *dev,RPProtocolPortStatus *status)
