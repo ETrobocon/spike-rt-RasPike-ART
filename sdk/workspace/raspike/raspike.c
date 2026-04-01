@@ -837,7 +837,6 @@ static uint8_t raspike2_startup_image[5][5] = {
 
 void main_task(intptr_t exinf)
 {
-  hub_imu_init();
 
   serial_opn_por(SIO_USB_PORTID);
   serial_ctl_por(SIO_USB_PORTID,0);
@@ -895,6 +894,12 @@ void main_task(intptr_t exinf)
   for (int i=0 ; i < RP_MAX_DEVICES; i++ ){
     fgCurrentStatus.ports[i].port = i;
   }
+
+  hub_imu_init();
+  while(!hub_imu_is_ready()) {
+  	dly_tsk(100*1000);
+  }
+	
 
   /* start notification */
   sta_cyc(APP_NOTIFY_CYC);
