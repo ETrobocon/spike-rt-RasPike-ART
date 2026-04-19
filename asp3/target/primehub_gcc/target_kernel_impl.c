@@ -58,7 +58,7 @@ extern void SystemClock_Config(void);
 /*
  *  バーナ出力用のUARTの初期化
  */
-static void usart_early_init(void);
+//static void usart_early_init(void);
 
 /*
  *  エラー時の処理
@@ -116,17 +116,22 @@ target_initialize(void)
 	/*
 	 *  バーナー出力用のシリアル初期化
 	 */
-	usart_early_init();
+//	usart_early_init();
 }
 
 void
 dump_sp(uint32_t *sp)
 {
   // syslog(LOG_EMERG, "sp : %08x", sp);
-  sp = (uint32_t *)((uint32_t)sp & 0xfffffff0 - 0x10);
+  sp = (uint32_t *)(((uint32_t)sp & 0xfffffff0) - 0x10);
   for(int i = 0; i < 0x100/16 ; i++) {
+	  uint32_t *sp0 = sp;
+	  uint32_t  sp1 = *(sp++);
+	  uint32_t  sp2 = *(sp++);
+	  uint32_t  sp3 = *(sp++);
+	  uint32_t  sp4 = *(sp++);
 	  syslog(LOG_EMERG, "%08x:  %08x %08x %08x %08x",
-           sp, *(sp++), *(sp++), *(sp++), *(sp++));
+           sp0, sp1, sp2, sp3, sp4);
   }
 }
 
@@ -164,6 +169,7 @@ target_exit(void)
 	while(1);
 }
 
+#if 0
 static UART_HandleTypeDef UartHandle;
 
 void
@@ -184,6 +190,7 @@ usart_early_init()
 		Error_Handler();
 	}
 };
+#endif
 
 /*
  * エラー発生時の処理

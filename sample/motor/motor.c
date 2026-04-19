@@ -33,7 +33,7 @@ main_task(intptr_t exinf)
   syslog(LOG_NOTICE, "Set Up Motor\n");
 
   // Get pointer to servo
-  motor = pup_motor_get_device(PBIO_PORT_ID_MOTOR);
+  motor = pup_motor_get_device(PBIO_PORT_ID_D);
   if(motor == NULL) {
     hub_system_shutdown();
   }

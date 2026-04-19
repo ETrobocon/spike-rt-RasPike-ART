@@ -32,21 +32,21 @@ pbio_error_t hub_display_orientation(uint8_t up) {
 }
 
 pbio_error_t hub_display_off(void) {
-    check_pbio_error(pbio_light_matrix_clear(pbsys_hub_light_matrix));
+    check_pbio_error('X', pbio_light_matrix_clear(pbsys_hub_light_matrix));
 
     return PBIO_SUCCESS;
 }
 
 pbio_error_t hub_display_pixel(uint8_t row, uint8_t column, uint8_t brightness) {
     // Set pixel at the given brightness
-    check_pbio_error(pbio_light_matrix_set_pixel(pbsys_hub_light_matrix, row, column, brightness));
+    check_pbio_error('X', pbio_light_matrix_set_pixel(pbsys_hub_light_matrix, row, column, brightness));
 
     return PBIO_SUCCESS;
 }
 
 pbio_error_t hub_display_image(uint8_t* image) {
     // Display the image
-    check_pbio_error(pbio_light_matrix_set_image(pbsys_hub_light_matrix, image));
+    check_pbio_error('X', pbio_light_matrix_set_image(pbsys_hub_light_matrix, image));
 
     return PBIO_SUCCESS;
 }
@@ -64,13 +64,13 @@ pbio_error_t hub_display_number(const int8_t num) {
 
     // > 99 gets displayed as >
     if (number > 99) {
-        check_pbio_error(pbio_light_matrix_set_rows(pbsys_hub_light_matrix, pb_font_5x5['>' - 32]));
+        check_pbio_error('X', pbio_light_matrix_set_rows(pbsys_hub_light_matrix, pb_font_5x5['>' - 32]));
         return PBIO_SUCCESS;
     }
 
     // < -99 gets displayed as <
     if (number < -99) {
-        check_pbio_error(pbio_light_matrix_set_rows(pbsys_hub_light_matrix, pb_font_5x5['<' - 32]));
+        check_pbio_error('X', pbio_light_matrix_set_rows(pbsys_hub_light_matrix, pb_font_5x5['<' - 32]));
         return PBIO_SUCCESS;
     }
 
@@ -88,18 +88,18 @@ pbio_error_t hub_display_number(const int8_t num) {
     }
 
     // Display the result
-    check_pbio_error(pbio_light_matrix_set_rows(pbsys_hub_light_matrix, composite));
+    check_pbio_error('X', pbio_light_matrix_set_rows(pbsys_hub_light_matrix, composite));
 
     // Display one faint dot in the middle to indicate negative
     if (negative) {
-        check_pbio_error(pbio_light_matrix_set_pixel(pbsys_hub_light_matrix, 2, 2, 50));
+        check_pbio_error('X', pbio_light_matrix_set_pixel(pbsys_hub_light_matrix, 2, 2, 50));
     }
 
     return PBIO_SUCCESS;
 }
 
 pbio_error_t hub_display_char(const char c) {
-    check_pbio_error(pbio_light_matrix_set_rows(pbsys_hub_light_matrix, pb_font_5x5[c - 32]));
+    check_pbio_error('X', pbio_light_matrix_set_rows(pbsys_hub_light_matrix, pb_font_5x5[c - 32]));
 
     return PBIO_SUCCESS;
 }
@@ -118,12 +118,12 @@ pbio_error_t hub_display_text(const char* text, uint32_t on, uint32_t off) {
 
     // Display all characters one by one
     for (i = 0; i < text_len; i++) {
-        check_pbio_error(pbio_light_matrix_set_rows(pbsys_hub_light_matrix, pb_font_5x5[text[i] - 32]));
+        check_pbio_error('X', pbio_light_matrix_set_rows(pbsys_hub_light_matrix, pb_font_5x5[text[i] - 32]));
         dly_tsk(on * 1000);
 
         // Some off time so we can see multiple of the same characters
         if (off > 0 || i == text_len - 1) {
-            check_pbio_error(pbio_light_matrix_clear(pbsys_hub_light_matrix));
+            check_pbio_error('X', pbio_light_matrix_clear(pbsys_hub_light_matrix));
             dly_tsk(off * 1000);
         }
     }
@@ -135,7 +135,7 @@ pbio_error_t hub_display_text(const char* text, uint32_t on, uint32_t off) {
 #define COLS 5
 pbio_error_t hub_display_text_scroll(const char* text, uint32_t delay) {
   // Make sure all characters are valid
-  char *p = text;
+  const char *p = text;
   int len = 0;
   while (*p) {
     if (*p < 32 || *p > 126) return PBIO_ERROR_INVALID_ARG;
@@ -159,7 +159,7 @@ pbio_error_t hub_display_text_scroll(const char* text, uint32_t delay) {
       for (int k = 0; k < ROWS; k++) {
         composite[k] = composite[k] << 1 | (font[k]&mask[j]) >> shift[j];
       }
-      check_pbio_error(pbio_light_matrix_set_rows(pbsys_hub_light_matrix, composite));
+      check_pbio_error('X', pbio_light_matrix_set_rows(pbsys_hub_light_matrix, composite));
       dly_tsk(delay * 1000);
     }
   }

@@ -34,6 +34,10 @@
 #ifndef _SPIKE_HUB_BLUETOOTH_H_
 #define _SPIKE_HUB_BLUETOOTH_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <pbio/error.h>
 #include <stdbool.h>
 
@@ -80,6 +84,9 @@ pbio_error_t hub_bluetooth_disable_advertising(void);
  */
 pbio_error_t hub_bluetooth_is_connected(bool *connected);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif // _SPIKE_HUB_BLUETOOTH_H_
 

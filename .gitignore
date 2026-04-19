@@ -2,3 +2,34 @@ tags
 
 build/
 **/build-doxygen/
+
+# Ignore backup script in sdk/common
+sdk/common/deploy-dfu.sh.bak
+
+# Ignore everything under sdk/workspace except the listed entries
+sdk/workspace/*
+!sdk/workspace/hubcheck
+!sdk/workspace/hubcheck/**
+!sdk/workspace/imu
+!sdk/workspace/imu/**
+!sdk/workspace/respike
+!sdk/workspace/respike/**
+!sdk/workspace/sample_c5
+!sdk/workspace/sample_c5/**
+!sdk/workspace/sample_cpp5
+!sdk/workspace/sample_cpp5/**
+!sdk/workspace/sample00
+!sdk/workspace/sample00/**
+!sdk/workspace/sample01
+!sdk/workspace/sample01/**
+!sdk/workspace/Makefile
+
+# Ignore build directories under each sdk/workspace project folder
+sdk/workspace/*/build/
+sdk/workspace/*/build/**
+
+# Ignore everything under tools except docker and requirements.txt
+tools/*
+!tools/docker
+!tools/docker/**
+!tools/requirements.txt

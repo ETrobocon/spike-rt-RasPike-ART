@@ -162,7 +162,7 @@ STATIC mp_obj_t common_Control_stall_tolerances(size_t n_args, const mp_obj_t *p
     speed = pb_obj_get_default_abs_int(speed_in, speed);
     time = pb_obj_get_default_abs_int(time_in, time);
 
-    check_pbio_error(pbio_control_settings_set_stall_tolerances(&control->settings, speed, time));
+    check_pbio_error('X', pbio_control_settings_set_stall_tolerances(&control->settings, speed, time));
 
     return PBIO_SUCCESS;
 }

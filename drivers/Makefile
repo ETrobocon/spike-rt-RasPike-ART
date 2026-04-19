@@ -35,6 +35,12 @@ KERNEL_COBJS += pup_device.o ultrasonicsensor.o colorsensor.o forcesensor.o moto
 INCLUDES += -I$(DRIVERS_DIR) \
 						-I$(DRIVERS_DIR)/spike \
 						-I$(DRIVERS_DIR)/include
+#
+# Definitions for libcpp/spike
+#
+KERNEL_CXXOBJS += Button.o Clock.o IMU.o Light.o
+KERNEL_DIRS += $(DRIVERS_DIR)/libcpp \
+	       $(DRIVERS_DIR)/libcpp/spike
 
 #
 #  Definitions for Pybricks.
