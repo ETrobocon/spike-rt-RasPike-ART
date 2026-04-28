@@ -76,7 +76,7 @@ ifdef KERNEL_LIB
 	@echo "$(abspath $(PYBRICKS_LIB))" > $(BUILDDIR)/.PYBRICKS_LIB
 endif
 
-$(BUILDDIR)/Makefile:
+$(BUILDDIR)/Makefile:	Makefile $(MKFILE_DIR)/$(MKFILENAME)
 	@mkdir -p $(BUILDDIR)
 	@cd $(BUILDDIR) && \
 	$(SRCDIR)/configure.rb -T $(TARGET) $(OPTKERNEL) \
@@ -88,7 +88,7 @@ $(BUILDDIR)/Makefile:
 	  -m $(MKFILE_DIR)/$(MKFILENAME)
 
 ifdef KERNEL_LIB
-$(KERNEL_LIB)/Makefile:
+$(KERNEL_LIB)/Makefile:	Makefile $(COMMONDIR)/kernel.mk
 	@mkdir -p $(KERNEL_LIB)
 	@cd $(KERNEL_LIB) && \
 	$(SRCDIR)/configure.rb -T $(TARGET) -f -m $(COMMONDIR)/kernel.mk
@@ -100,7 +100,7 @@ endif
 endif
 
 usage:
-	@cho "Usage:"
+	@echo "Usage:"
 	@echo "  make img=\"<folder>\""
 	@echo "  make upload"
 	@echo "  make clean"
@@ -131,5 +131,11 @@ endif
 cleanup:	
 	@rm -rf $(notdir $(OBJFILENAME)) $(OBJBINARY) firmware.dfu $(DEPKERNEL)
 
-.PHONY: usage img upload clean cleanup realclean
+distclean:
+	@$(foreach app,$(wildcard */build),make -C $(app) realclean;)
+	@$(foreach app,$(wildcard */build),rm -rf $(app);)
+	@rm appdir asp.bin
+	@rm -rf ../../build
+
+.PHONY: usage img upload clean cleanup realclean distclean
 	
