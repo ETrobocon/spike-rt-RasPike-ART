@@ -131,5 +131,11 @@ endif
 cleanup:	
 	@rm -rf $(notdir $(OBJFILENAME)) $(OBJBINARY) firmware.dfu $(DEPKERNEL)
 
-.PHONY: usage img upload clean cleanup realclean
+distclean:
+	@$(foreach app,$(wildcard */build),make -C $(app) realclean;)
+	@$(foreach app,$(wildcard */build),rm -rf $(app);)
+	@rm appdir asp.bin
+	@rm -rf ../../build
+
+.PHONY: usage img upload clean cleanup realclean distclean
 	
