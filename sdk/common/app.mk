@@ -194,6 +194,9 @@ APPLDIRS = @(APPLDIRS)
 APPL_CFG = @(CFGFILE)
 APPL_CDL = @(CDLFILE)
 
+# for backward compatibilities, add obsolete files there
+INCLUDES += -I$(abspath @(APPLDIRS)/../../common/compat)
+
 APPL_DIRS := $(APPLDIRS) $(SRCDIR)/library
 APPL_ASMOBJS :=
 ifdef USE_CXX
