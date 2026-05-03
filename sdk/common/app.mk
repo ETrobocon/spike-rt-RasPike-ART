@@ -194,15 +194,11 @@ APPLDIRS = @(APPLDIRS)
 APPL_CFG = @(CFGFILE)
 APPL_CDL = @(CDLFILE)
 
-# for backward compatibilities, add obsolete files there
-INCLUDES += -I$(abspath @(APPLDIRS)/../../common/compat)
-
 APPL_DIRS := $(APPLDIRS) $(SRCDIR)/library
 APPL_ASMOBJS :=
 ifdef USE_CXX
 	APPL_CXXOBJS := @(APPLOBJS)
 	APPL_COBJS :=
-        INCLUDES := $(INCLUDES) -I$(DRIVERS_DIR)/include/libcpp -I$(DRIVERS_DIR)/include/libcpp/spike
 else
 	APPL_COBJS := @(APPLOBJS)
 endif
@@ -442,7 +438,11 @@ $(OBJNAME).syms: $(OBJFILE)
 #  バイナリファイルの生成
 #
 $(OBJNAME).bin: $(OBJFILE)
+ifneq ("$(wildcard HUB_NAME)","")
+	$(OBJCOPY) --update-section .name=HUB_NAME -O binary -S $(OBJFILE) $(OBJNAME).bin
+else
 	$(OBJCOPY) -O binary -S $(OBJFILE) $(OBJNAME).bin
+endif
 
 #
 #  Sレコードファイルの生成
@@ -466,7 +466,7 @@ check.timestamp: cfg2_out.db $(OBJNAME).syms $(OBJNAME).srec
 .PHONY: clean
 clean:
 	rm -f \#* *~ $(OBJDIR)/*.o $(DEPDIR)/*.d $(CLEAN_FILES) check.timestamp
-	rm -f $(OBJFILE) $(OBJNAME).syms $(OBJNAME).srec $(OBJNAME).bin $(OBJNAME).dfu
+	rm -f $(OBJFILE) $(OBJNAME).syms $(OBJNAME).srec $(OBJNAME).bin $(OBJNAME).dfu HUB_NAME
 	rm -f kernel_cfg.timestamp $(CFG2_OUT_SRCS) cfg2_out.db
 	rm -f offset.timestamp $(OFFSET_H)
 	rm -f cfg1_out.syms cfg1_out.srec $(CFG1_OUT)
