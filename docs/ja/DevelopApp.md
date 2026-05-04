@@ -8,7 +8,7 @@
 ## ソースコードの入手
 以下により、ソースコードをクローンする。
 ```bash
-git clone https://github.com/ETrobocon/spike-rt.git
+git clone https://github.com/ETrobocon/spike-rt-RasPike-ART.git
 ```
 以下、特に断りの無い限りトップディレクトリが`spike-rt` のディレクトリであるとする。
 また、アプリケーション・ソースコードのディレクトリが `spike-rt/sdk/workspace/$appdir`に配置されているとする。
