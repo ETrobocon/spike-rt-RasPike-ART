@@ -55,6 +55,8 @@ CDL_DIR := $(APPLDIRS)
 ifeq (,$(wildcard $(CDL_DIR)/$(CDLFILE)))
 CDL_DIR := $(COMMONDIR)
 CDLFILE := app.cdl
+else
+CDL_DIR := ..
 endif
 
 ifdef KERNEL_LIB
@@ -83,10 +85,10 @@ $(BUILDDIR)/Makefile:	Makefile $(MKFILE_DIR)/$(MKFILENAME)
 	@mkdir -p $(BUILDDIR)
 	@cd $(BUILDDIR) && \
 	$(SRCDIR)/configure.rb -T $(TARGET) $(OPTKERNEL) \
-          -a $(APPLDIRS) \
+          -a .. \
 	  -A $(APPLNAME) \
 	  -l $(SRCLANG) \
-	  -d $(BUILDDIR)/dep \
+	  -d dep \
 	  -C $(CDL_DIR)/$(CDLFILE) \
 	  -m $(MKFILE_DIR)/$(MKFILENAME)
 
